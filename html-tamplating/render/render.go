@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/config"
+	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -22,8 +23,13 @@ func NewTemplate(a *config.AppConfig) {
 
 }
 
+// carate default data 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 // RenderTemplate render template using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		// get tehe template cache from the app config
@@ -46,8 +52,11 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	}
 
 	buf := new(bytes.Buffer)
+	// check and return td
+	
+	td = AddDefaultData(td)
 
-	_ = t.Execute(buf, nil)
+	_ = t.Execute(buf, td)
 
 	_, err := buf.WriteTo(w)
 
