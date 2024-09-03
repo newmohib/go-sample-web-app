@@ -2,8 +2,7 @@ package handlers
 
 import (
 	"net/http"
-
-	render "github.com/newmohib/go-sample-web-app/html-tamplating"
+	"github.com/newmohib/go-sample-web-app/html-tamplating/render"
 )
 
 // Home is the home page handler
