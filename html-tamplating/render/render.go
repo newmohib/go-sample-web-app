@@ -8,30 +8,48 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/config"
 )
 
 var functions = template.FuncMap{}
 
+var app *config.AppConfig
+
+// NewTemplate sets the config for the template package
+func NewTemplate(a *config.AppConfig) {
+	app = a
+
+}
+
 // RenderTemplate render template using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-
-	tc, err := CreateTemplateCache()
-
-	if err != nil {
-		fmt.Println("error parsing template:", err)
-		log.Fatal(err)
+	var tc map[string]*template.Template
+	if app.UseCache {
+		// get tehe template cache from the app config
+		tc = app.TamplateCache
+	} else {
+		tc, _ = CreateTemplateCache()
 	}
+
+	// tc, err := CreateTemplateCache()
+
+	// if err != nil {
+	// 	fmt.Println("error parsing template:", err)
+	// 	log.Fatal(err)
+	// }
+
 	t, ok := tc[tmpl]
 
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	buf := new(bytes.Buffer)
 
 	_ = t.Execute(buf, nil)
 
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 
 	if err != nil {
 		fmt.Println("error parsing template:", err)
