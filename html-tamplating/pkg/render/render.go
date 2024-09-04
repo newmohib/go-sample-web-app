@@ -23,7 +23,7 @@ func NewTemplate(a *config.AppConfig) {
 
 }
 
-// carate default data 
+// carate default data
 func AddDefaultData(td *models.TemplateData) *models.TemplateData {
 	return td
 }
@@ -53,7 +53,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 
 	buf := new(bytes.Buffer)
 	// check and return td
-	
+
 	td = AddDefaultData(td)
 
 	_ = t.Execute(buf, td)
@@ -65,7 +65,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		//log.Fatal(err)
 	}
 
-	// parsedTemplate, _ := template.ParseFiles("../templates/" + tmpl)
+	// parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
 
 	// err1 := parsedTemplate.Execute(w, nil)
 
@@ -80,7 +80,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
-	pages, err := filepath.Glob("../templates/*.page.tmpl")
+	pages, err := filepath.Glob("./templates/*.page.tmpl")
 
 	if err != nil {
 		return myCache, err
@@ -96,14 +96,14 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 			return myCache, err
 		}
 		// in tutorial are ./templates/*.layout.tmpl
-		matches, err := filepath.Glob("../templates/*.layout.tmpl")
+		matches, err := filepath.Glob("./templates/*.layout.tmpl")
 
 		if err != nil {
 			return myCache, err
 		}
 
 		if len(matches) > 0 {
-			ts, err = ts.ParseGlob("../templates/*.layout.tmpl")
+			ts, err = ts.ParseGlob("./templates/*.layout.tmpl")
 			if err != nil {
 				return myCache, err
 			}
