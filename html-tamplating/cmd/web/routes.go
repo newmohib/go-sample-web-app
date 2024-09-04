@@ -22,6 +22,10 @@ func routes(app *config.AppConfig) http.Handler {
 	mux := chi.NewRouter()
 	// middleware
 	mux.Use(middleware.Recoverer)
+	// middleware is used for logging console
+	mux.Use(WriteToConsole)
+	// set coockie into request as csrf on client
+	mux.Use(NoSurf)
 
 	// router
 	mux.Get("/", handlers.Repo.Home)
