@@ -10,7 +10,7 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/config"
 	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/handlers"
-	"github.com/newmohib/go-sample-web-app/html-tamplating/render"
+	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/render"
 )
 
 // application portNumber
@@ -19,6 +19,7 @@ const portNumber = ":8080"
 // initialize app config
 // its alos using into middleware or any others into main package
 var app config.AppConfig
+
 // initialize sessin manager and its alos using into middleware or any others into main package
 var session *scs.SessionManager
 

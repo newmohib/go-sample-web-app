@@ -6,7 +6,7 @@ import (
 
 	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/config"
 	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/models"
-	"github.com/newmohib/go-sample-web-app/html-tamplating/render"
+	"github.com/newmohib/go-sample-web-app/html-tamplating/pkg/render"
 )
 
 // TemplateData holds data sent from handlers to templates
