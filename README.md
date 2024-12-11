@@ -11,3 +11,10 @@
 ##### routing packages
 
     go get github.com/bmizerany/pat
+### Test
+
+##### test run
+- go test -v
+- go test -cover
+- go test -coverprofile=coverage.out && go tool cover -html=coverage.out
+

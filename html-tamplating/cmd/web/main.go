@@ -25,7 +25,23 @@ var session *scs.SessionManager
 
 // main is the main application function
 func main() {
+	err := run()
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	fmt.Println("Starting application on port:", portNumber)
+
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+	err = srv.ListenAndServe()
+	log.Fatal(err)
+}
+
+func run() error  {
+	
 	// change this to true when in production
 	app.InProduction = false
 
@@ -45,6 +61,7 @@ func main() {
 	if err != nil {
 		fmt.Println("error parsing template:", err)
 		log.Fatal("Can not create template cache")
+		return err
 	}
 	app.TamplateCache = tc
 	app.UseCache = false
@@ -53,13 +70,5 @@ func main() {
 	handlers.NewHandlers(repo)
 
 	render.NewTemplate(&app)
-
-	fmt.Println("Starting application on port:", portNumber)
-
-	srv := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(&app),
-	}
-	err = srv.ListenAndServe()
-	log.Fatal(err)
+	return nil
 }
